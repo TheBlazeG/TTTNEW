@@ -2,11 +2,74 @@
 //
 
 #include <iostream>
+#include <vector>
 using namespace std;
+const int NUM_SQUARES= 9;
+const char EMPTY = ' ';
+const char X = 'X';
+const char O = 'O';
+const char NO_ONE = 'N';
+void instructions(vector<char>board);
+char humanSymbol();
+char opponent(char player);
 
 int main()
 {
-   cout << "Hello World!\n";
+char player;
+char computer;
+char turn=X;
+vector<char> board (NUM_SQUARES, EMPTY);
+instructions(board);
+player=humanSymbol();
+computer = opponent(player);
+while (winner()==NO_ONE)
+{
+
+}
+}
+
+void instructions(vector<char>board)
+{
+	cout << "Bienvenido Mago del Mango, elige una posicion entre 0 y 8 para vencer al antima(n)go" << endl;
+	cout << "|0|1|2|\n|3|4|5|\n|6|7|8|";
+}
+char AskYesNo(string question)
+{
+    char answer;
+    do
+    {
+        cout << "\n" << question << "(y/n)" << endl;
+        cin >> answer;
+    } while (answer != 'y' && answer != 'n');
+	return answer;
+}
+char humanSymbol()
+{
+	char goFirst = AskYesNo("Quieres comenzar?");
+	if (goFirst=='y')
+	{
+		return X;
+	}
+	else
+	{
+		return O;
+	}
+}
+char opponent(char player)
+{
+	if (player==X)
+	{
+		return O;
+	}
+	else 
+	{
+		return X;
+	}
+}
+
+char winner(vector<char> &board)
+{
+
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
