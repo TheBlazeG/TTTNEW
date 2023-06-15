@@ -69,7 +69,18 @@ char opponent(char player)
 
 char winner(vector<char> &board)
 {
+	if (board[0]==board[4] && board[4]== board[8])
+	{
 
+	}
+	if (board[0] == board[4] && board[4] == board[8])
+	{
+
+	}
+	if (board[0] == board[4] && board[4] == board[8])
+	{
+
+	}
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
