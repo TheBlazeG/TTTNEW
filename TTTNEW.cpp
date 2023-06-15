@@ -9,20 +9,20 @@ const char EMPTY = ' ';
 const char X = 'X';
 const char O = 'O';
 const char NO_ONE = 'N';
+const char TIE = 'T';
 void instructions(vector<char>board);
 char humanSymbol();
 char opponent(char player);
 
 int main()
 {
-char player;
-char computer;
+
 char turn=X;
 vector<char> board (NUM_SQUARES, EMPTY);
 instructions(board);
-player=humanSymbol();
-computer = opponent(player);
-while (winner()==NO_ONE)
+char player = humanSymbol();
+char computer = opponent(player);
+while (winner(board)==NO_ONE)
 {
 
 }
@@ -67,21 +67,35 @@ char opponent(char player)
 	}
 }
 
-char winner(vector<char> &board)
+char winner(const vector<char> &board)
 {
-	if (board[0]==board[4] && board[4]== board[8])
-	{
+	const int WINNING_POS[8][3] = { {0,1,2},
+		{3,4,5},
+		{6,7,8},
+		{0,3,6},
+		{1,4,7},
+		{2,5,8},
+		{2,4,6}, 
+		{0,4,8}};
+	const int TOTAL_ROWS = 8;
 
-	}
-	if (board[0] == board[4] && board[4] == board[8])
+	for (int row = 0; row < TOTAL_ROWS; row++)
 	{
-
+		if ((board[WINNING_POS[row][0]]!= EMPTY) &&
+			(board[WINNING_POS[row][0]]==board[WINNING_POS[row][1]]) &&
+			(board[WINNING_POS[row][1]]==board[WINNING_POS[row][2]]))
+		{
+			return board[WINNING_POS[row][0]];
+		}
 	}
-	if (board[0] == board[4] && board[4] == board[8])
+	if (count(board.begin(),board.end(),EMPTY)==0)
 	{
-
+		return TIE;
 	}
+
+	return NO_ONE;
 }
+
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
 // Depurar programa: F5 o menú Depurar > Iniciar depuración
