@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <vector>
+#include<cstdlib>
+#include <string>
 using namespace std;
 const int NUM_SQUARES= 9;
 const char EMPTY = ' ';
@@ -13,19 +15,34 @@ const char TIE = 'T';
 void instructions(vector<char>board);
 char humanSymbol();
 char opponent(char player);
-
+char winner(const vector<char>& board);
+void displayboard(const vector<char>& board);
+int askNumber(string question, int high, int low);
+int playermove(const vector<char>& board);
+bool validspace(const vector<char>& board, int number);
 int main()
 {
 
-char turn=X;
+
+int move;
 vector<char> board (NUM_SQUARES, EMPTY);
 instructions(board);
 char player = humanSymbol();
 char computer = opponent(player);
+char turn = X;
+
+
+
 while (winner(board)==NO_ONE)
 {
-
+	if (turn == player)
+{
+	move = playermove(board);
+	board[move] = player;
+	displayboard(board);
 }
+}
+
 }
 
 void instructions(vector<char>board)
@@ -95,6 +112,84 @@ char winner(const vector<char> &board)
 
 	return NO_ONE;
 }
+void displayboard(const vector<char>& board)
+{
+	cout << "|" << board[0] << "|" << board[1] << "|" << board[2] << "|" << "\n|" << board[3] << "|" << board[4] << "|" << board[5] << "|\n" << "|" << board[6] << "|" << board[7] << "|" << board[8] << "|";
+}
+int playermove(const vector<char>& board)
+{
+	bool valid;
+	int number;
+	do
+	{
+		number = askNumber("Elige un espacio", 8, 0);
+		valid = validspace(board, number);
+		
+	} while (!valid);
+	cout << "yay\n";
+	return number;
+}
+int askNumber(string question, int high, int low)
+{
+	string input;
+	bool isValid = false;
+	bool isRangeValid = false;
+	int number = 0;
+
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+	do {
+		cout << question << "entre " << low << " y " << high << endl;
+
+		getline(cin, input);
+
+		for (char c : input)
+		{
+			if (!isdigit(c))
+			{
+				isValid = false;
+				break;
+			}
+			else
+			{
+				isValid = true;
+				break;
+			}
+		}
+
+		if (!isValid)
+		{
+			cout << "\nEntrada inválida, por favor elige solo números.\n";
+		}
+		else
+		{
+			number = stoi(input);
+			isRangeValid = number <= high && number >= low;
+		}
+
+		if (!isRangeValid && isValid)
+		{
+			cout << "\nEntrada inválida, elige un número dentro del rango establecido.\n";
+		}
+
+	} while (!isValid || input.empty() || !isRangeValid);
+
+	return number;
+}
+bool validspace(const vector<char>& board,int number)
+{
+	if (board[number]==EMPTY)
+	{
+		return true;
+	}
+	else
+	{
+		cout << "Espacio utilizado\n";
+		return false;
+		
+	}
+}
+
 
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
