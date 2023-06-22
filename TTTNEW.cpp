@@ -5,6 +5,7 @@
 #include <vector>
 #include<cstdlib>
 #include <string>
+#include<algorithm>
 using namespace std;
 const int NUM_SQUARES= 9;
 const char EMPTY = ' ';
@@ -20,6 +21,7 @@ void displayboard(const vector<char>& board);
 int askNumber(string question, int high, int low);
 int playermove(const vector<char>& board);
 bool validspace(const vector<char>& board, int number);
+char randomSel(char hope);
 int main()
 {
 
@@ -63,13 +65,18 @@ char AskYesNo(string question)
 char humanSymbol()
 {
 	char goFirst = AskYesNo("Quieres comenzar?");
+	goFirst=randomSel(goFirst);
 	if (goFirst=='y')
 	{
+		cout << "vas X" << endl;
 		return X;
+		
 	}
 	else
 	{
+		cout << "vas O" << endl;
 		return O;
+		
 	}
 }
 char opponent(char player)
@@ -189,7 +196,51 @@ bool validspace(const vector<char>& board,int number)
 		
 	}
 }
-
+char randomSel(char hope)
+{
+	srand(time(NULL));
+	int randomguess = rand();
+	int randomresult = (randomguess % 6);
+	cout << "Escoge par o impar para decidir si te hago caso..."<<endl;
+	char guess=AskYesNo("Quieres par?");
+	cout << "El dado fue: " << randomresult << endl;
+	if (randomresult%2==0 && guess=='y')
+	{
+		cout << "Tendre que hacerte caso >:(" << endl;
+		if (hope=='y')
+		{
+			return 'y';
+		} 
+		else
+		{
+			return 'n';
+		}
+	}
+	if (randomresult % 2 != 0 && guess == 'n')
+	{
+		cout << "Tendre que hacerte caso >:(" << endl;
+		if (hope == 'y')
+		{
+			return 'y';
+		}
+		else
+		{
+			return 'n';
+		}
+	}
+	else
+	{
+		cout << "Mala suerte porque yo escogo al revés!" << endl;
+		if (hope == 'y')
+		{
+			return 'n';
+		}
+		else
+		{
+			return 'y';
+		}
+	}
+}
 
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
