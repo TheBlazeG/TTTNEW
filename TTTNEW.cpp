@@ -22,6 +22,7 @@ int askNumber(string question, int high, int low);
 int playermove(const vector<char>& board);
 bool validspace(const vector<char>& board, int number);
 char randomSel(char hope);
+int computerMove(vector<char> board, char computer);
 int main()
 {
 
@@ -240,6 +241,28 @@ char randomSel(char hope)
 			return 'y';
 		}
 	}
+}
+int computerMove(vector<char> board, char computer)
+{
+	int move = 0;
+	bool foundSpace = false;
+
+	while (!foundSpace && move < board.size()) {
+
+		if (validspace(board,move))
+		{
+			board[move] = computer;
+			foundSpace = winner(board) == computer;
+		}
+
+		if (!foundSpace)
+		{
+			move++;
+		}
+	}
+
+
+
 }
 
 
