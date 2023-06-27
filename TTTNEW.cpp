@@ -277,7 +277,7 @@ int computerMove(vector<char> board, char computer)
 		}
 	}
 
-	if (foundSpace)
+	if (!foundSpace)
 	{
 		move = 0;
 		char human = opponent(computer);
@@ -295,6 +295,24 @@ int computerMove(vector<char> board, char computer)
 		}
 	}
 
+	//find best move start on center
+	if (!foundSpace)
+	{
+		move = 0;
+		unsigned int i = 0;
+		const int BEST_MOVE[] = { 4,0,2,6,8,1,3,5,7 };
+		while (!foundSpace && i<board.size())
+		{
+			move = BEST_MOVE[i];
+			if (isLegal(move,board))
+			{
+				foundSpace = true;
+			}
+			++i;
+		}
+	}
+	cout << "Usare la posicion " << move << endl;
+	return move;
 }
 
 
