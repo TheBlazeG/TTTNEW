@@ -22,6 +22,8 @@ int askNumber(string question, int high, int low);
 int playermove(const vector<char>& board);
 bool validspace(const vector<char>& board, int number);
 char randomSel(char hope);
+inline bool isLegal(int move, const vector<char>& board);
+int humanMove(const vector<char>& board);
 int computerMove(vector<char> board, char computer);
 int main()
 {
