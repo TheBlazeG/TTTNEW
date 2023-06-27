@@ -242,6 +242,20 @@ char randomSel(char hope)
 		}
 	}
 }
+inline bool isLegal(int move, const vector<char>& board)
+{
+	return (board[move] == EMPTY);
+}
+int humanMove(const vector<char>& board)
+{
+	int move = askNumber("Elige una posicion del tablero", (board.size() - 1),0);
+	while (!isLegal(move,board))
+	{
+		cout << "\nEsa posicion ya está ocupada humano tonto. \n";
+		move = askNumber("elige una posicion del tablero", (board.size() - 1), 0);
+	}
+
+}
 int computerMove(vector<char> board, char computer)
 {
 	int move = 0;
@@ -249,7 +263,7 @@ int computerMove(vector<char> board, char computer)
 
 	while (!foundSpace && move < board.size()) {
 
-		if (validspace(board,move))
+		if (isLegal(move,board))
 		{
 			board[move] = computer;
 			foundSpace = winner(board) == computer;
@@ -261,7 +275,23 @@ int computerMove(vector<char> board, char computer)
 		}
 	}
 
-
+	if (foundSpace)
+	{
+		move = 0;
+		char human = opponent(computer);
+		while (!foundSpace && move < board.size())
+		{
+			if (isLegal(move,board))
+			{
+				board[move] = human;
+				foundSpace = winner(board) == human;
+			}
+			if (!foundSpace)
+			{
+				move++;
+			}
+		}
+	}
 
 }
 
