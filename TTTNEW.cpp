@@ -1,4 +1,4 @@
-// TTTNEW.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
+   // TTTNEW.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
 //
 
 #include <iostream>
@@ -25,6 +25,7 @@ char randomSel(char hope);
 inline bool isLegal(int move, const vector<char>& board);
 int humanMove(const vector<char>& board);
 int computerMove(vector<char> board, char computer);
+void announceWinner(char winner, char human, char computer);
 int main()
 {
 
@@ -45,9 +46,15 @@ while (winner(board)==NO_ONE)
 	move = playermove(board);
 	board[move] = player;
 	displayboard(board);
-}
-}
 
+}
+	else
+	{
+		move = computerMove(board, computer);
+		displayboard(board);
+	}
+}
+announceWinner(winner(board), player, computer);
 }
 
 void instructions(vector<char>board)
@@ -314,6 +321,21 @@ int computerMove(vector<char> board, char computer)
 	cout << "Usare la posicion " << move << endl;
 	return move;
 }
+void announceWinner(char winner, char human, char computer) {
+	if (winner == computer) {
+		cout << "\nEl ganador es: " << winner << endl;
+		cout << "\n Soy el ganador!! Probando una vez más que las computadoras somos mejores que ustedes en todo sentido.\n";
+	}
+	else if (winner == human) {
+		cout << "\nEl ganador es: " << winner << endl;
+		cout << "\nNo es posible!! Hiciste trampa humano!!";
+	}
+	else {
+		cout << "\n ES UN EMPATE\n";
+		cout << "\nQue suerte tienes, celébralo es lo mejor que lograrás.\n";
+	}
+}
+
 
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
